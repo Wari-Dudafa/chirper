@@ -1,15 +1,19 @@
+import 'react-native-gesture-handler';
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { useState } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { onAuthStateChanged } from "firebase/auth";
+import { Feather } from '@expo/vector-icons';
 
 import { auth } from './firebaseConfig';
 import Homepage from './app/pages/Homepage';
 import Signinpage from './app/pages/Signinpage';
 import Chirppage from './app/pages/Chirppage';
 import Userpage from './app/pages/Userpage';
-import { useState } from 'react';
+import Messagespage from './app/pages/Messagespage';
+import Notificationspage from './app/pages/Notificationspage';
+import Searchpage from './app/pages/Searchpage';
 
 const Tab = createBottomTabNavigator();
 
@@ -20,46 +24,79 @@ function LoggedIn(){
   onAuthStateChanged(auth, (user) => {
     if (user) {
       setLoggedIn(true);
-      console.log("A: Logged in");
+      console.log("Logged in");
 
     } else {
       setLoggedIn(false)
-      console.log("A: Logged out");
+      console.log("Logged out");
 
     }
   });
 
   if (loggedIn){
-    // Return not logged in ui
+    // Return logged in UI
     return (
       <NavigationContainer>
-        <Tab.Navigator initialRouteName="Homepage">
+        <Tab.Navigator
+          initialRouteName="Homepage"
+          screenOptions={{
+            tabBarShowLabel: false,
+          }}
+        >
           <Tab.Screen
             name="Homepage"
             component={Homepage}
+            options={{
+              title: "Chirper",
+              tabBarIcon: () => (
+                <Feather name="home" size={24} color="black" />
+              ),
+            }}
           />
 
           <Tab.Screen
-            name="Chirppage"
-            component={Chirppage}
+            name="Searchpage"
+            component={Searchpage}
+            options={{
+              title: "Search",
+              headerShown: false,
+              tabBarIcon: () => (
+                <Feather name="search" size={24} color="black" />
+              ),
+            }}
           />
 
           <Tab.Screen
-            name="Userpage"
-          component={Userpage}
+            name="Notificationspage"
+            component={Notificationspage}
+            options={{
+              title: "Notifications",
+              tabBarIcon: () => (
+                <Feather name="bell" size={24} color="black" />
+              ),
+            }}
+          />
+
+          <Tab.Screen
+            name="Messagespage"
+            component={Messagespage}
+            options={{
+              title: "Messages",
+              tabBarIcon: () => (
+                <Feather name="mail" size={24} color="black" />
+              ),
+            }}
           />
         </Tab.Navigator>
       </NavigationContainer>
     );
   } else {
-    // Return logged in UI
+    // Return not logged in UI
     return (
       <Signinpage></Signinpage>
     );
   }
 }
-
-
 
 export default function App() {
 
@@ -70,12 +107,3 @@ export default function App() {
     </>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});

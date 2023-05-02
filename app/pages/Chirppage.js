@@ -10,10 +10,8 @@ let currentUser;
 onAuthStateChanged(auth, (user) => {
   if (user) {
     currentUser = user;
-    console.log("C: Logged in");
   } else {
     currentUser = null;
-    console.log("C: Logged out");
   }
 });
 
