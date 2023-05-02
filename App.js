@@ -2,6 +2,7 @@ import 'react-native-gesture-handler';
 import { StatusBar } from 'expo-status-bar';
 import { useState } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import { onAuthStateChanged } from "firebase/auth";
@@ -11,21 +12,34 @@ import { auth } from './firebaseConfig';
 import Homepage from './app/pages/Homepage';
 import Signinpage from './app/pages/Signinpage';
 import Chirppage from './app/pages/Chirppage';
-import Userpage from './app/pages/Userpage';
-import Messagespage from './app/pages/Messagespage';
+import Settingspage from './app/pages/Settingspage';
+import Myprofilepage from './app/pages/Myprofilepage';
 import Notificationspage from './app/pages/Notificationspage';
 import Searchpage from './app/pages/Searchpage';
 
 const Tab = createBottomTabNavigator();
 const Drawer = createDrawerNavigator();
+const Stack = createNativeStackNavigator();
 
-function Drawerrootpage(props) {
-  // Crashes whenever I use this
+function Chirpstack(){
   return (
-    <Drawer.Navigator>
-      <Drawer.Screen name="Homepage" component={Homepage} />
-      <Drawer.Screen name="Userpage" component={Userpage} />
-    </Drawer.Navigator>
+    <Stack.Navigator initialRouteName='Homepage' screenOptions={{headerShown: false}}>
+      <Stack.Screen
+        name='Homepage'
+        component={Homepage}
+      />
+      <Stack.Group screenOptions={{ presentation: 'modal' }}>
+        <Stack.Screen
+        name='Chirppage'
+        component={Chirppage}
+        />
+        <Stack.Screen
+        name='Settingspage'
+        component={Settingspage}
+        />
+      </Stack.Group>
+    
+    </Stack.Navigator>
   );
 }
 
@@ -50,14 +64,14 @@ function LoggedIn(){
     return (
       <NavigationContainer>
         <Tab.Navigator
-          initialRouteName="Homepage"
+          initialRouteName="Chirpstack"
           screenOptions={{
             tabBarShowLabel: false,
           }}
         >
           <Tab.Screen
-            name="Homepage"
-            component={Homepage}
+            name="Chirpstack"
+            component={Chirpstack}
             options={{
               title: "Chirper",
               tabBarIcon: () => (
@@ -90,12 +104,12 @@ function LoggedIn(){
           />
 
           <Tab.Screen
-            name="Messagespage"
-            component={Messagespage}
+            name="Myprofilepage"
+            component={Myprofilepage}
             options={{
-              title: "Messages",
+              title: "My profile",
               tabBarIcon: () => (
-                <Feather name="mail" size={24} color="black" />
+                <Feather name="user" size={24} color="black" />
               ),
             }}
           />

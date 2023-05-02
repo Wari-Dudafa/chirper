@@ -15,6 +15,14 @@ onAuthStateChanged(auth, (user) => {
     }
 });
 
+function Signup(props){
+    
+}
+
+function Login(props){
+
+}
+
 function Signinpage(props) {
 
     createUserWithEmailAndPassword(auth, email, password)
@@ -107,7 +115,7 @@ const styles = StyleSheet.create({
         borderRadius: "5%",
         margin: 10,
         flex: 1,
-        backgroundColor: 'grey',
+        backgroundColor: 'slategrey',
         justifyContent: 'center'
 
     },
@@ -119,7 +127,7 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'center',
         borderRadius: "5%",
-        backgroundColor: 'grey',
+        backgroundColor: 'slategrey',
         justifyContent: 'center',
         margin: 10,
         padding: 20,

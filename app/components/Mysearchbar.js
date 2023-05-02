@@ -22,7 +22,7 @@ const styles = StyleSheet.create({
         alignItems: 'center'
     },
     pill: {
-        backgroundColor: "grey",
+        backgroundColor: "slategrey",
         padding: 10,
         paddingLeft: 30,
         paddingRight: 30,

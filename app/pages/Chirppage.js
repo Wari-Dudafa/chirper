@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { SafeAreaView, Button, TextInput } from 'react-native';
+import { View, Text, TextInput, StyleSheet, TouchableOpacity } from 'react-native';
 import { onAuthStateChanged } from "firebase/auth";
 import { ref, set, push, child } from "firebase/database";
 
@@ -17,26 +17,78 @@ onAuthStateChanged(auth, (user) => {
 
 function AddData(chirp) {
   const chirpid = push(child(ref(db), currentUser.uid)).key;
-  console.log(chirpid);
 
   set(ref(db, 'chirps/' + currentUser.uid + "/" + chirpid), {
     chirp: chirp,
   });
 }
 
-function Chirppage(props) {
+function Chirppage( {navigation} ) {
 
   const [chirp, setChirp] = useState("");
 
   return (
-    <SafeAreaView>
-      <TextInput placeholder='chirp' value={chirp} onChangeText={setChirp}></TextInput>
-      <Button title='Chirp!' onPress={() => {
-        AddData( chirp )
-        setChirp("")
-      }}></Button>
-    </SafeAreaView>
+    <>
+      <View style={styles.buttoncontainer}>
+
+        <TouchableOpacity
+          style= {styles.button}
+          onPress={() => navigation.goBack()}
+        >
+          <Text style={styles.text}>Cancel</Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity 
+          onPress={() => {
+            AddData( chirp )
+            setChirp("")
+            navigation.goBack()
+          }}
+
+          style= {styles.button}
+        >
+          <Text style={styles.text}>Chirp</Text>
+        </TouchableOpacity>
+
+      </View>
+
+      <View style= {styles.textinputcontainer}>
+        <TextInput multiline={true} style={styles.textinput} placeholder="What's on your mind?" value={chirp} onChangeText={setChirp}></TextInput>
+      </View>
+
+    </>
   );
 }
+
+const styles = StyleSheet.create({
+  button:{
+    flex: 1,
+    justifyContent: 'center',
+    alignContent: 'center',
+    borderRadius: '20%',
+    backgroundColor: 'grey',
+    margin: 10,
+  },
+  buttoncontainer:{
+    flex:1,
+    flexDirection: 'row',
+  },
+  textinput:{
+    marginTop: 10,
+    marginLeft: 10,
+    color: 'black',
+    fontSize: 30,
+
+  },
+  textinputcontainer:{
+    backgroundColor:'slategrey',
+    borderRadius: '20%',
+    flex:10,
+  },
+  text:{
+    textAlign: 'center',
+    fontWeight: 'bold',
+  }
+})
 
 export default Chirppage;

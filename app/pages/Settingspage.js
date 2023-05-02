@@ -1,5 +1,5 @@
 import React from 'react';
-import { SafeAreaView, Text, Button } from 'react-native';
+import { SafeAreaView, Text, Button, TouchableOpacity } from 'react-native';
 import { onAuthStateChanged, signOut } from "firebase/auth";
 import { ref, set, push, child } from "firebase/database";
 
@@ -15,19 +15,26 @@ onAuthStateChanged(auth, (user) => {
     }
   });
 
-function Userpage(props) {
+function Settingspage( {navigation} ) {
     return (
-        <SafeAreaView>
+        <>
             <Text>Email: {currentUser.email}</Text>
-            <Button title='Sign out' onPress={() => {
+            <TouchableOpacity title='Sign out' onPress={() => {
                 signOut(auth).then(() => {
                     // Sign-out successful.
                 }).catch((error) => {
                     // An error happened.
                 });
-            }}></Button>
-        </SafeAreaView>
+            }}>
+                <Text>Sign out</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+                onPress={() => navigation.goBack()}
+            >
+                <Text>Close</Text>
+            </TouchableOpacity>
+        </>
     );
 }
 
-export default Userpage;
+export default Settingspage;

@@ -2,16 +2,16 @@ import React from 'react';
 import { StyleSheet, TouchableOpacity } from 'react-native';
 import { Feather } from '@expo/vector-icons';
 
-function Chirpbutton(props) {
+function Settingsbutton(props) {
     return (
-        <TouchableOpacity onPress={props.onPress} style={styles.chirpbutton}>
-            <Feather name="plus" size={34} color="black" />
+        <TouchableOpacity onPress={props.onPress} style={styles.userbutton}>
+            <Feather name="settings" size={34} color="black" />
         </TouchableOpacity>
     );
 }
 
 const styles = StyleSheet.create({
-    chirpbutton :{
+    userbutton :{
         position: 'absolute',
         backgroundColor: "slategrey",
         borderRadius: "50%",
@@ -22,4 +22,4 @@ const styles = StyleSheet.create({
     
 })
 
-export default Chirpbutton;
+export default Settingsbutton;
