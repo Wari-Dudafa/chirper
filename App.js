@@ -4,7 +4,6 @@ import { useState } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { createDrawerNavigator } from '@react-navigation/drawer';
 import { onAuthStateChanged } from "firebase/auth";
 import { Feather } from '@expo/vector-icons';
 
@@ -18,7 +17,6 @@ import Notificationspage from './app/pages/Notificationspage';
 import Searchpage from './app/pages/Searchpage';
 
 const Tab = createBottomTabNavigator();
-const Drawer = createDrawerNavigator();
 const Stack = createNativeStackNavigator();
 
 function Chirpstack(){

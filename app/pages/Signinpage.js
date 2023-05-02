@@ -1,25 +1,16 @@
 import React, { useState } from 'react';
 import { SafeAreaView, TextInput, StyleSheet, TouchableOpacity, Text, View } from 'react-native';
-import { createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged } from "firebase/auth";
+import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
 import { AntDesign } from '@expo/vector-icons';
 
 import { auth } from '../../firebaseConfig';
-
-let currentUser;
-
-onAuthStateChanged(auth, (user) => {
-    if (user) {
-        currentUser = user;
-    } else {
-        currentUser = null;
-    }
-});
 
 function Signinpage(props) {
 
     createUserWithEmailAndPassword(auth, email, password)
     .then((userCredential) => {
-      const user = userCredential.user;
+        // Setup new user with some sort of furthur sign up page
+        const user = userCredential.user;
     })
     .catch((error) => {
         const errorCode = error.code;
@@ -35,26 +26,25 @@ function Signinpage(props) {
       const errorMessage = error.message;
     });
 
-    const [email, setEmail] = useState("phil@gmail.com")
-    const [password, setPassword] = useState("23132132131231")
+    const [email, setEmail] = useState("testuser@gmail.com")
+    const [password, setPassword] = useState("testuserpassword")
 
     return (
         <>
-            <View style={{flex: 0.5, justifyContent: 'center', alignContent: 'center'}}>
+            <View style={styles.maintextcontainer}>
                 <SafeAreaView></SafeAreaView>
                 <Text style={styles.maintext}>Chirper</Text>
             </View>
+
             <View style={styles.textinputcontainer}>
                 <SafeAreaView></SafeAreaView>
 
                 <View style={styles.textinput}>
-                    <Text style={{fontSize: 25}}>Email: </Text>
-                    <TextInput placeholder='Email' value={email} onChangeText={setEmail}></TextInput>
+                    <TextInput style={styles.text} placeholder='Email' value={email} onChangeText={setEmail}></TextInput>
                 </View>
 
                 <View style={styles.textinput}>
-                    <Text style={{fontSize: 25}}>Password: </Text>
-                    <TextInput placeholder='Password' value={password} onChangeText={setPassword}></TextInput>
+                    <TextInput style={styles.text} secureTextEntry={true} placeholder='Password' value={password} onChangeText={setPassword}></TextInput>
                 </View>
             </View>
 
@@ -62,9 +52,11 @@ function Signinpage(props) {
                 <TouchableOpacity
                     style={styles.buttons}
                     onPress={() => {
-                        createUserWithEmailAndPassword(auth, email, password)
-                        setEmail()
-                        setPassword()
+                        if (email != null && password != null){
+                            createUserWithEmailAndPassword(auth, email, password)
+                            setEmail()
+                            setPassword()
+                        }
                     }}>
                     <Text>Sign up</Text>
                 </TouchableOpacity>
@@ -72,22 +64,20 @@ function Signinpage(props) {
                 <TouchableOpacity
                     style={styles.buttons}
                     onPress={() => {
-                        signInWithEmailAndPassword(auth, email, password)
-                        setEmail()
-                        setPassword()
+                        if (email != null && password != null){
+                            signInWithEmailAndPassword(auth, email, password)
+                            setEmail()
+                            setPassword()
+                        }
                     }}>
                     <Text>Login</Text>
                 </TouchableOpacity>
 
                 <TouchableOpacity
                     style={styles.buttons}
-                    onPress={() => {
-                        // User auth with google 
-                        console.log('Google')
-                    }}
                 >
                     <AntDesign name="google" size={24} color="black" />
-                    <Text> Sign in with google </Text>
+                    <Text> Sign in with google (Coming soon...) </Text>
                 </TouchableOpacity>
             </View>
             <View style={{flex: 0.5}}></View>
@@ -97,13 +87,23 @@ function Signinpage(props) {
 }
 
 const styles = StyleSheet.create({
+    maintextcontainer:{
+        flex: 1,
+        justifyContent: 'center',
+        alignContent: 'center'
+    },
     maintext:{
         textAlign: 'center',
         fontWeight: 'bold',
         fontSize: 60,
     },
-    textinputcontainer:{
+    text:{
         flex: 1,
+        fontSize: 25,
+        marginLeft: 10,
+    },
+    textinputcontainer:{
+        flex: 0.8,
     },
     textinput: {
         alignItems: 'center',
@@ -111,10 +111,10 @@ const styles = StyleSheet.create({
         margin: 10,
         flex: 1,
         backgroundColor: 'slategrey',
-        justifyContent: 'center'
+        justifyContent: 'center',
+        flexDirection: 'row'
 
     },
-
     buttoncontainer:{
         flex: 1,
     },

@@ -1,9 +1,8 @@
 import React from 'react';
-import { SafeAreaView, Text, Button, TouchableOpacity } from 'react-native';
+import { Text, TouchableOpacity } from 'react-native';
 import { onAuthStateChanged, signOut } from "firebase/auth";
-import { ref, set, push, child } from "firebase/database";
 
-import { db, auth } from '../../firebaseConfig';
+import { auth } from '../../firebaseConfig';
 
 let currentUser;
 
@@ -19,6 +18,7 @@ function Settingspage( {navigation} ) {
     return (
         <>
             <Text>Email: {currentUser.email}</Text>
+            <Text>User id: {currentUser.uid}</Text>
             <TouchableOpacity title='Sign out' onPress={() => {
                 signOut(auth).then(() => {
                     // Sign-out successful.

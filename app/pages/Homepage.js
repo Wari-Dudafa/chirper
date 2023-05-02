@@ -1,9 +1,8 @@
-import React, { useState } from 'react';
-import { SafeAreaView, View } from 'react-native';
+import React from 'react';
+import { View } from 'react-native';
 import { onAuthStateChanged } from "firebase/auth";
-import { ref, set, push, child } from "firebase/database";
 
-import { db, auth } from '../../firebaseConfig';
+import { auth } from '../../firebaseConfig';
 import Chirpbutton from '../components/Chirpbutton';
 import Settingsbutton from '../components/Settingsbutton';
 
