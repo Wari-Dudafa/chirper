@@ -3,6 +3,7 @@ import { StatusBar } from 'expo-status-bar';
 import { useState } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { createDrawerNavigator } from '@react-navigation/drawer';
 import { onAuthStateChanged } from "firebase/auth";
 import { Feather } from '@expo/vector-icons';
 
@@ -16,6 +17,17 @@ import Notificationspage from './app/pages/Notificationspage';
 import Searchpage from './app/pages/Searchpage';
 
 const Tab = createBottomTabNavigator();
+const Drawer = createDrawerNavigator();
+
+function Drawerrootpage(props) {
+  // Crashes whenever I use this
+  return (
+    <Drawer.Navigator>
+      <Drawer.Screen name="Homepage" component={Homepage} />
+      <Drawer.Screen name="Userpage" component={Userpage} />
+    </Drawer.Navigator>
+  );
+}
 
 function LoggedIn(){
 
