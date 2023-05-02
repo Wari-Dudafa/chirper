@@ -15,14 +15,6 @@ onAuthStateChanged(auth, (user) => {
     }
 });
 
-function Signup(props){
-    
-}
-
-function Login(props){
-
-}
-
 function Signinpage(props) {
 
     createUserWithEmailAndPassword(auth, email, password)
@@ -37,7 +29,6 @@ function Signinpage(props) {
     signInWithEmailAndPassword(auth, email, password)
     .then((userCredential) => {
         const user = userCredential.user;
-        console.log(user);
     })
     .catch((error) => {
       const errorCode = error.code;
@@ -90,9 +81,13 @@ function Signinpage(props) {
 
                 <TouchableOpacity
                     style={styles.buttons}
+                    onPress={() => {
+                        // User auth with google 
+                        console.log('Google')
+                    }}
                 >
                     <AntDesign name="google" size={24} color="black" />
-                    <Text> Sign in with google</Text>
+                    <Text> Sign in with google </Text>
                 </TouchableOpacity>
             </View>
             <View style={{flex: 0.5}}></View>
