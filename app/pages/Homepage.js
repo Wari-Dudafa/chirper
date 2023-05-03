@@ -20,7 +20,6 @@ function Homepage( {navigation} ) {
 
   return (
     <View>
-      <Settingsbutton onPress={() => navigation.navigate("Settingspage")}></Settingsbutton>
       <Chirpbutton onPress={() => navigation.navigate("Chirppage")}></Chirpbutton>
     </View>
   );

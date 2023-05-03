@@ -80,7 +80,8 @@ const styles = StyleSheet.create({
   },
   textinput:{
     marginTop: 10,
-    marginLeft: 10,
+    marginLeft: 5,
+    marginRight: 5,
     color: 'black',
     fontSize: 30,
 
