@@ -1,10 +1,9 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { View } from 'react-native';
 import { onAuthStateChanged } from "firebase/auth";
 
 import { auth } from '../../firebaseConfig';
 import Chirpbutton from '../components/Chirpbutton';
-import Settingsbutton from '../components/Settingsbutton';
 
 let currentUser;
 
@@ -17,6 +16,15 @@ onAuthStateChanged(auth, (user) => {
 });
 
 function Homepage( {navigation} ) {
+
+  if (currentUser.displayName == null){
+
+    useEffect(() => {
+      navigation.navigate("Verifyuserpage")
+    });
+    return
+
+  }
 
   return (
     <View>

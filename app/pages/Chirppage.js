@@ -17,11 +17,13 @@ onAuthStateChanged(auth, (user) => {
 
 async function AddChirp(chirp, db, currentUser) {
   try {
+    date = new Date();
     const docRef = await addDoc(collection(db, "chirps"), {
       chirp: chirp,
       userid: currentUser.uid,
+      likecount: 0,
+      chirptime: date,
     });
-    console.log("Document written with ID: ", docRef.id);
   } catch (e) {
     console.error("Error adding document: ", e);
   }

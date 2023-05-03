@@ -15,10 +15,24 @@ onAuthStateChanged(auth, (user) => {
   });
 
 function Settingspage( {navigation} ) {
+
+    let completeSignUp;
+
+    if (currentUser.displayName == null){
+        completeSignUp =
+            <TouchableOpacity
+                onPress={() => navigation.navigate("Verifyuserpage")}
+            >
+                <Text>Complete sign up</Text>
+            </TouchableOpacity>
+    }
+
     return (
         <>
             <Text>Email: {currentUser.email}</Text>
+            <Text>Name: {currentUser.displayName}</Text>
             <Text>User id: {currentUser.uid}</Text>
+            
             <TouchableOpacity title='Sign out' onPress={() => {
                 signOut(auth).then(() => {
                     // Sign-out successful.
@@ -28,6 +42,7 @@ function Settingspage( {navigation} ) {
             }}>
                 <Text>Sign out</Text>
             </TouchableOpacity>
+            {completeSignUp}
             <TouchableOpacity
                 onPress={() => navigation.goBack()}
             >
