@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { View, Text, TextInput, StyleSheet, TouchableOpacity } from 'react-native';
 import { onAuthStateChanged } from "firebase/auth";
-import { ref, set, push, child } from "firebase/database";
+import { collection, addDoc } from "firebase/firestore"; 
 
 import { db, auth } from '../../firebaseConfig';
 
@@ -15,17 +15,22 @@ onAuthStateChanged(auth, (user) => {
   }
 });
 
-function AddData(chirp) {
-  const chirpid = push(child(ref(db), currentUser.uid)).key;
+async function AddChirp(chirp, db, currentUser) {
+  try {
+    const docRef = await addDoc(collection(db, "chirps"), {
+      chirp: chirp,
+      userid: currentUser.uid,
+    });
+    console.log("Document written with ID: ", docRef.id);
+  } catch (e) {
+    console.error("Error adding document: ", e);
+  }
 
-  set(ref(db, 'chirps/' + currentUser.uid + "/" + chirpid), {
-    chirp: chirp,
-  });
 }
 
 function Chirppage( {navigation} ) {
 
-  const [chirp, setChirp] = useState("");
+  const [chirp, setChirp] = useState();
 
   return (
     <>
@@ -40,8 +45,8 @@ function Chirppage( {navigation} ) {
 
         <TouchableOpacity 
           onPress={() => {
-            AddData( chirp )
-            setChirp("")
+            AddChirp(chirp, db, currentUser)
+            setChirp()
             navigation.goBack()
           }}
 
