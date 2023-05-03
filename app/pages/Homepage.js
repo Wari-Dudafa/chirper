@@ -18,12 +18,9 @@ onAuthStateChanged(auth, (user) => {
 function Homepage( {navigation} ) {
 
   if (currentUser.displayName == null){
-
     useEffect(() => {
       navigation.navigate("Verifyuserpage")
     });
-    return
-
   }
 
   return (
