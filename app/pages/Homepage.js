@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import { View } from 'react-native';
+import { View, SafeAreaView, Text } from 'react-native';
 import { onAuthStateChanged } from "firebase/auth";
 
-import { auth } from '../../firebaseConfig';
+import { db, auth } from '../../firebaseConfig';
 import Chirpbutton from '../components/Chirpbutton';
 
 let currentUser;
@@ -24,9 +24,9 @@ function Homepage( {navigation} ) {
   }
 
   return (
-    <View>
+    <SafeAreaView>
       <Chirpbutton onPress={() => navigation.navigate("Chirppage")}></Chirpbutton>
-    </View>
+    </SafeAreaView>
   );
 }
 

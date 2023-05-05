@@ -77,7 +77,7 @@ function Signinpage(props) {
                     style={styles.buttons}
                 >
                     <AntDesign name="google" size={24} color="black" />
-                    <Text> Sign in with google (Coming soon...) </Text>
+                    <Text> Sign in with google </Text>
                 </TouchableOpacity>
             </View>
             <View style={{flex: 0.5}}></View>
