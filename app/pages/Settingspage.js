@@ -12,7 +12,7 @@ onAuthStateChanged(auth, (user) => {
     } else {
         currentUser = null;
     }
-  });
+});
 
 function Settingspage( {navigation} ) {
 
@@ -31,6 +31,7 @@ function Settingspage( {navigation} ) {
         <>
             <Text>Email: {currentUser.email}</Text>
             <Text>Name: {currentUser.displayName}</Text>
+            <Text>Username: @...</Text>
             <Text>User id: {currentUser.uid}</Text>
             
             <TouchableOpacity title='Sign out' onPress={() => {
@@ -42,7 +43,9 @@ function Settingspage( {navigation} ) {
             }}>
                 <Text>Sign out</Text>
             </TouchableOpacity>
+
             {completeSignUp}
+            
             <TouchableOpacity
                 onPress={() => navigation.goBack()}
             >
