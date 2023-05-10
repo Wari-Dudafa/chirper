@@ -57,13 +57,9 @@ function LoggedIn(){
 
   onAuthStateChanged(auth, (user) => {
     if (user) {
-      setLoggedIn(true);
-      console.log("Logged in");
-
+      setLoggedIn(true)
     } else {
       setLoggedIn(false)
-      console.log("Logged out");
-
     }
   });
 
