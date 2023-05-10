@@ -45,9 +45,11 @@ function Homepage( {navigation} ) {
   }, [reload]);
 
   const showChirps = () => {
+    var today = new Date()  
+
     return chirps.map((chirp, index) => {
       return(
-        <Chirpcontainer chirp={chirp.chirp}/>
+        <Chirpcontainer  key ={index} chirp={chirp.chirp} name='Name' username='@username' time={chirp.chirptime} today={today.getTime()}/>
       );
   });
   }

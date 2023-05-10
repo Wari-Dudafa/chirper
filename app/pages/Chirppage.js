@@ -22,7 +22,7 @@ async function AddChirp(chirp, db, currentUser) {
       chirp: chirp,
       userid: currentUser.uid,
       likecount: 0,
-      chirptime: date,
+      chirptime: date.getTime(),
     });
   } catch (e) {
     console.error("Error adding document: ", e);
