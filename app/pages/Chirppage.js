@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, StyleSheet, TouchableOpacity } from 'react-native';
+import { View, Text, TextInput, StyleSheet, TouchableOpacity, Alert } from 'react-native';
 import { onAuthStateChanged } from "firebase/auth";
 import { collection, addDoc } from "firebase/firestore"; 
 
@@ -15,24 +15,46 @@ onAuthStateChanged(auth, (user) => {
   }
 });
 
-async function AddChirp(chirp, db, currentUser) {
-  try {
-    date = new Date();
-    const docRef = await addDoc(collection(db, "chirps"), {
-      chirp: chirp,
-      userid: currentUser.uid,
-      likecount: 0,
-      chirptime: date.getTime(),
-    });
-  } catch (e) {
-    console.error("Error adding document: ", e);
+function Chirppage( {navigation} ) {
+  
+  const [chirp, setChirp] = useState()
+  
+  async function AddChirp(chirp, db, currentUser) {
+    if (chirp.length > 250){
+      Alert.alert('Chirp is too long')
+      return
+    }
+    try {
+      date = new Date();
+      const docRef = await addDoc(collection(db, "chirps"), {
+        chirp: chirp,
+        userid: currentUser.uid,
+        likecount: 0,
+        chirptime: date.getTime(),
+      });
+    } catch (e) {
+      console.error("Error adding document: ", e);
+    }
+
   }
 
-}
-
-function Chirppage( {navigation} ) {
-
-  const [chirp, setChirp] = useState();
+  const characterCounter = () => {
+    let colour = 'green'
+    if (chirp == null){
+      return
+    } else{
+      if (chirp.length > 250){
+        colour = 'red'
+        return (
+          <Text style={{paddingLeft: 5, color: colour}}>{chirp.length}</Text>
+        )
+      } else {
+        return (
+          <Text style={{paddingLeft: 5, color: colour}}>{chirp.length}</Text>
+        )
+      }
+    }
+  }
 
   return (
     <>
@@ -61,8 +83,8 @@ function Chirppage( {navigation} ) {
 
       <View style= {styles.textinputcontainer}>
         <TextInput multiline={true} style={styles.textinput} placeholder="What's on your mind?" value={chirp} onChangeText={setChirp}></TextInput>
+        {characterCounter()}
       </View>
-
     </>
   );
 }

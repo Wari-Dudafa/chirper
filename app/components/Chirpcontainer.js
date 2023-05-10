@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
+import { View, Text, TouchableOpacity, StyleSheet, Image } from 'react-native';
 import { Feather } from '@expo/vector-icons';
 
 function Chirpcontainer(props) {
@@ -32,9 +32,10 @@ function Chirpcontainer(props) {
                     style={styles.userinfo}
                     onPress={() => {console.log('user')}}
                 >
-                    <View style={styles.profilepic}></View>
+                    <Image style={styles.profilepic} source={require('../../assets/icon.png')}/>
+                    
                     <Text>{props.name}</Text>
-                    <Text style={{fontSize: 15}}>{props.username}</Text>
+                    <Text style={{fontSize: 12}}>{props.username}</Text>
                 </TouchableOpacity>
 
                 <TouchableOpacity
@@ -47,14 +48,14 @@ function Chirpcontainer(props) {
                 <View>
                     <TouchableOpacity
                         style={styles.likebutton}
-                        onPress={() => {console.log('like')}}
+                        onPress={props.onLike}
                     >
                         <Feather name="heart" size={35} color="grey" />
                     </TouchableOpacity>
                     
                     <TouchableOpacity
                         style={styles.likebutton}
-                        onPress={() => {console.log('reply')}}
+                        onPress={props.onReply}
                     >
                         <Feather name="message-circle" size={30} color="grey" />
                     </TouchableOpacity>

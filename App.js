@@ -16,6 +16,7 @@ import Myprofilepage from './app/pages/Myprofilepage';
 import Notificationspage from './app/pages/Notificationspage';
 import Searchpage from './app/pages/Searchpage';
 import Verifyuserpage from './app/pages/Verifyuserpage';
+import Replypage from './app/pages/Replypage';
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
@@ -31,6 +32,10 @@ function Chirpstack(){
         <Stack.Screen
         name='Chirppage'
         component={Chirppage}
+        />
+        <Stack.Screen
+        name='Replypage'
+        component={Replypage}
         />
         <Stack.Screen
         name='Settingspage'

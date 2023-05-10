@@ -48,10 +48,22 @@ function Homepage( {navigation} ) {
     var today = new Date()  
 
     return chirps.map((chirp, index) => {
+      let name = "Name"
+      let username = '@username'
+
       return(
-        <Chirpcontainer  key ={index} chirp={chirp.chirp} name='Name' username='@username' time={chirp.chirptime} today={today.getTime()}/>
+        <Chirpcontainer 
+          key ={index}
+          chirp={chirp.chirp}
+          name={name}
+          username={username}
+          time={chirp.chirptime}
+          today={today.getTime()}
+          onLike={() => console.log('liked')}
+          onReply={() => navigation.navigate("Replypage")}
+        />
       );
-  });
+    });
   }
 
   return (
